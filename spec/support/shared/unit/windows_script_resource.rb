@@ -47,7 +47,7 @@ shared_examples_for "a Windows script resource" do
     end
 
     it "should use a resource to evaluate the guard when guard_interpreter is not specified" do
-      expect_any_instance_of(Chef::GuardInterpreter::ResourceGuardInterpreter).to receive(:evaluate_action).and_return(true)
+      expect_any_instance_of(Chef::GuardInterpreter::ResourceGuardInterpreter).to receive(:evaluate).and_return(true)
       expect_any_instance_of(Chef::GuardInterpreter::DefaultGuardInterpreter).not_to receive(:evaluate)
       @resource.only_if "echo hi"
       expect(@resource.should_skip?(:run)).to eq(nil)

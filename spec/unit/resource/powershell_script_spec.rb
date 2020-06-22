@@ -63,24 +63,24 @@ describe Chef::Resource::PowershellScript do
 
     it "allows guard interpreter to be set to Chef::Resource::Script" do
       resource.guard_interpreter(:script)
-      allow_any_instance_of(Chef::GuardInterpreter::ResourceGuardInterpreter).to receive(:evaluate_action).and_return(false)
+      allow_any_instance_of(Chef::GuardInterpreter::ResourceGuardInterpreter).to receive(:evaluate).and_return(false)
       resource.only_if("echo hi")
     end
 
     it "allows guard interpreter to be set to Chef::Resource::Bash derived from Chef::Resource::Script" do
       resource.guard_interpreter(:bash)
-      allow_any_instance_of(Chef::GuardInterpreter::ResourceGuardInterpreter).to receive(:evaluate_action).and_return(false)
+      allow_any_instance_of(Chef::GuardInterpreter::ResourceGuardInterpreter).to receive(:evaluate).and_return(false)
       resource.only_if("echo hi")
     end
 
     it "allows guard interpreter to be set to Chef::Resource::PowershellScript derived indirectly from Chef::Resource::Script" do
       resource.guard_interpreter(:powershell_script)
-      allow_any_instance_of(Chef::GuardInterpreter::ResourceGuardInterpreter).to receive(:evaluate_action).and_return(false)
+      allow_any_instance_of(Chef::GuardInterpreter::ResourceGuardInterpreter).to receive(:evaluate).and_return(false)
       resource.only_if("echo hi")
     end
 
     it "enables convert_boolean_return by default for guards in the context of powershell_script when no guard params are specified" do
-      allow_any_instance_of(Chef::GuardInterpreter::ResourceGuardInterpreter).to receive(:evaluate_action).and_return(true)
+      allow_any_instance_of(Chef::GuardInterpreter::ResourceGuardInterpreter).to receive(:evaluate).and_return(true)
       allow_any_instance_of(Chef::GuardInterpreter::ResourceGuardInterpreter).to receive(:block_from_attributes).with(
         { convert_boolean_return: true, code: "$true" }
       ).and_return(Proc.new {})

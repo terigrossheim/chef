@@ -70,8 +70,7 @@ shared_examples_for "a script resource" do
     end
 
     it "when guard_interpreter is set to the default value, the guard command string should be evaluated by command execution and not through a resource" do
-      expect_any_instance_of(Chef::Resource::Conditional).not_to receive(:evaluate_block)
-      expect_any_instance_of(Chef::GuardInterpreter::ResourceGuardInterpreter).not_to receive(:evaluate_action)
+      expect_any_instance_of(Chef::GuardInterpreter::ResourceGuardInterpreter).not_to receive(:evaluate)
       expect_any_instance_of(Chef::GuardInterpreter::DefaultGuardInterpreter).to receive(:evaluate).and_return(true)
       resource.only_if "echo hi"
       expect(resource.should_skip?(:run)).to eq(nil)
@@ -79,7 +78,7 @@ shared_examples_for "a script resource" do
 
     it "when a valid guard_interpreter resource is specified, a block should be used to evaluate the guard" do
       expect_any_instance_of(Chef::GuardInterpreter::DefaultGuardInterpreter).not_to receive(:evaluate)
-      expect_any_instance_of(Chef::GuardInterpreter::ResourceGuardInterpreter).to receive(:evaluate_action).and_return(true)
+      expect_any_instance_of(Chef::GuardInterpreter::ResourceGuardInterpreter).to receive(:evaluate).and_return(true)
       resource.guard_interpreter :script
       resource.only_if "echo hi"
       expect(resource.should_skip?(:run)).to eq(nil)
