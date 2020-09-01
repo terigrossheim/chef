@@ -496,9 +496,6 @@ describe Chef::Knife::Bootstrap do
     it "copies the certificates in the directory" do
       certificates.each do |cert|
         expect(IO).to receive(:read).with(File.expand_path(cert))
-      end
-
-      certificates.each do |cert|
         expect(rendered_template).to match(%r{cat > /etc/chef/trusted_certs/#{File.basename(cert)} <<'EOP'})
       end
     end
