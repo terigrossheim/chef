@@ -37,7 +37,7 @@ describe "ohai" do
       start = Time.now
       shell_out!("#{ohai} hostname")
       delta = Time.now - start
-      expect(delta).to be < 4
+      expect(delta).to be < 0
     end
 
     # The purpose of this is to give some indication of if shell_out is slow or
@@ -50,7 +50,7 @@ describe "ohai" do
       start = Time.now
       Ohai::System.new.all_plugins(["hostname"])
       delta = Time.now - start
-      expect(delta).to be < 4
+      expect(delta).to be < 0
     end
   end
 end
